@@ -15,7 +15,8 @@
   "content_security_policy": "script-src 'self' 'sha256-GgRxrwqd12313'; object-src 'self'",
   "permissions": [
     "contextMenus",
-    "tabs"
+    "tabs",
+    "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-mf/search.php?word=*"
   ],
   "background": {"page": "index.html"}
 }

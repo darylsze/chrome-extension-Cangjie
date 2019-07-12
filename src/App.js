@@ -2,13 +2,14 @@
 import React from 'react';
 import './App.css';
 import cheerio from 'cheerio';
+import request from 'request'
 
 const searchUrbanDict = function(word){
   const query = word.selectionText;
   const url = "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-mf/search.php?word=" + query;
 
   // open new tab for result
-  chrome.tabs.create({ url });
+  // chrome.tabs.create({ url });
 
   const options = {
     method: 'POST',
@@ -22,15 +23,15 @@ const searchUrbanDict = function(word){
     console.info('request callback');
       if (!error && response.statusCode === 200){
         console.info('done in getting html from ', url);
-        const $ = cheerio.load(html);
-        const result = $('#char_info_table > tbody > tr:nth-child(3) > td:nth-child(2)').innerText
+        const $ = cheerio.load(html, { decodeEntities: false });
+        const result = $('#char_info_table > tbody > tr:nth-child(3) > td:nth-child(2)').html();
         alert(result)
       } else {
         console.error('request failed', error);
       }
     };
 
-  // request(options, callback)
+  request(options, callback)
 };
 
 chrome.contextMenus.create({
